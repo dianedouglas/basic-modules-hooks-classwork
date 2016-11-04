@@ -1,0 +1,6 @@
+name = Pet
+description = Norman the Hedgehog's module.
+package = Epicodus Examples
+core = 7.x
+files[] = pet.module
+stylesheets[all][] = styles.css

@@ -1,0 +1,15 @@
+<?php
+function pet_menu() {
+	$items['my_pet_hedgehog'] = array(
+			'title' => "Norman the Hedgehog!",
+			'page callback' => 'output_hedgehog',
+			'access callback' => TRUE,
+			'type' => MENU_NORMAL_ITEM,
+		);
+	return $items;
+}
+
+function output_hedgehog() {
+	$path = drupal_get_path('module', 'pet') . '/pic.jpg';
+	return '<img class="pet" src="'. $path .'" alt="Hedgehog" />';
+}
