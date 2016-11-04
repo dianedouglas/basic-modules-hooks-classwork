@@ -1,0 +1,30 @@
+<?php
+
+function cards_menu() {
+	$friends = ['beth', 'toast', 'matt'];
+	foreach ($friends as $friend) {
+	$items['cards/' . $friend] = array(
+			'title' => $friend,
+			'page callback' => 'output_' . $friend,
+			'access callback' => TRUE,
+			'type' => MENU_NORMAL_ITEM,
+		);
+	}
+	return $items;
+}
+
+function output_beth() {
+	return '
+		<h1>Beth!</h1>
+	';
+}
+function output_toast() {
+	return '
+		<h1>Toast!</h1>
+	';
+}
+function output_matt() {
+	return '
+		<h1>Matt!</h1>
+	';
+}
