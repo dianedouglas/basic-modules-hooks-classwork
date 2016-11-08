@@ -1,0 +1,5 @@
+name = Greeting With Hooks
+description = Display greetings.
+package = Epicodus Examples
+core = 7.x
+files[] = greeting.module
