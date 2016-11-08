@@ -1,6 +1,7 @@
 <?php
 function greeting_menu() {
     $items = array();
+    // incidentally, line 3 is not needed. It's there for clarity to show that $items is just a normal blank array that we are adding key-value pairs to, and then returning.
     $items['hello_friend'] = array(
         'title' => 'Hello Friend!',
         'page callback' => 'say_hello',
