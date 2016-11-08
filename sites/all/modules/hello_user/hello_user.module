@@ -15,5 +15,9 @@ function new_user_created() {
 }
 
 function hello_user_user_insert(&$edit, $account, $category) {
+  // Students should find the parameter list for this hook on the documentation.
+  // They should also see that this hook is invoked when a new account is created, 
+  // so it will be visible when an admin goes to the people page and clicks the "add user" link, fills out the form and hits the submit button. 
+  // Then the admin user sent to this new custom page.
   $_GET['destination'] = 'new_user_created';
 }
