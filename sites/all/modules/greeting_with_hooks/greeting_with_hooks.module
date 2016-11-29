@@ -3,22 +3,22 @@ function greeting_with_hooks_menu() {
     $items = array();
     $items['hello_friend'] = array(
         'title' => 'Hello Friend!',
-        'page callback' => 'say_hello',
+        'page callback' => 'say_hello_hooks',
         'access callback' => TRUE,
         'type' => MENU_CALLBACK,
     );
     $items['farewell'] = array(
         'title' => 'Farewell Friend!',
-        'page callback' => 'say_farewell',
+        'page callback' => 'say_farewell_hooks',
         'access callback' => TRUE,
         'type' => MENU_CALLBACK,
     );
     return $items;
 }
-function say_hello() {
+function say_hello_hooks() {
     return '<p>Hello my dear friend!</p>';
 }
-function say_farewell() {
+function say_farewell_hooks() {
     return '<p>Fare thee well my dear friend!</p>';
 }
 function greeting_with_hooks_user_login(&$edit, $account){
