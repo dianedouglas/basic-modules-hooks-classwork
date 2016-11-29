@@ -1,0 +1,132 @@
+<?php
+
+// first we set up specific pages for each user role by creating menu callbacks and their page callback functions.
+function user_greetings_menu() {
+    $items = array();
+    $items['hello_auth'] = array(
+        'title' => 'Hello authenticated!',
+        'page callback' => 'say_hello_auth',
+        'access callback' => TRUE,
+        'type' => MENU_CALLBACK,
+    );
+    $items['hello_admin'] = array(
+        'title' => 'Welcome to the admin view!',
+        'page callback' => 'say_hello_admin',
+        'access callback' => TRUE,
+        'type' => MENU_CALLBACK,
+    );
+    $items['bye_auth'] = array(
+        'title' => 'Bye authenticated!',
+        'page callback' => 'say_bye_auth',
+        'access callback' => TRUE,
+        'type' => MENU_CALLBACK,
+    );
+    $items['bye_admin'] = array(
+        'title' => 'Bye admin!',
+        'page callback' => 'say_bye_admin',
+        'access callback' => TRUE,
+        'type' => MENU_CALLBACK,
+    );
+    return $items;
+}
+
+function say_hello_auth(){
+    return "Nice to see you, authenticated user!";
+}
+
+function say_hello_admin(){
+    return "Welcome to the admin view!";
+}
+
+function say_bye_auth(){
+    return "Come back soon auth!";
+}
+
+function say_bye_admin(){
+    return "Bye bye bye admin!";
+}
+
+
+// Then students can start by investigating how to get the current user role out of either hook_user_login or hook_user_logout. 
+// In either case, you get the given parameters $account and &$edit from the documentation of the hook. 
+// Then you can print them out to see what information you have available to you.
+// Then it's just a matter of using the standard $_GET['destination'] to redirect the user if they have the desired role.
+// Don't forget to disable the other greeting module which uses these same hooks so that they don't conflict.
+
+function user_greetings_user_login(&$edit, $account) {
+    // step 1
+    // echo '<pre>';
+    // var_dump($account);
+    // echo '</pre>';
+    // exit;
+
+    // step 2
+    // echo '<pre>';
+    // var_dump($account->roles);
+    // echo '</pre>';
+    // exit;
+
+    // step 3
+    // echo '<pre>';
+    // if (in_array("administrator", $account->roles)) {
+    //     var_dump("i am an admin");
+    // }
+    // echo '</pre>';
+    // exit;
+
+    // step 4
+    // echo '<pre>';
+    // if (in_array("administrator", $account->roles)) {
+    //     var_dump("i am an admin");
+    // } else {
+    //     var_dump("i am an authenticated user");
+    // }
+    // echo '</pre>';
+    // exit;
+
+    // step 5
+    if (in_array("administrator", $account->roles)) {
+        $_GET['destination'] = 'hello_admin';
+    } else {
+        $_GET['destination'] = 'hello_auth';
+    }
+}
+
+function user_greetings_user_logout($account) {
+    // step 1
+    // echo '<pre>';
+    // var_dump($account);
+    // echo '</pre>';
+    // exit;
+
+    // step 2
+    // echo '<pre>';
+    // var_dump($account->roles);
+    // echo '</pre>';
+    // exit;
+
+    // step 3
+    // echo '<pre>';
+    // if (in_array("administrator", $account->roles)) {
+    //     var_dump("i am an admin");
+    // }
+    // echo '</pre>';
+    // exit;
+
+    // step 4
+    // echo '<pre>';
+    // if (in_array("administrator", $account->roles)) {
+    //     var_dump("i am an admin");
+    // } else {
+    //     var_dump("i am an authenticated user");
+    // }
+    // echo '</pre>';
+    // exit;
+
+    // step 5
+    if (in_array("administrator", $account->roles)) {
+        $_GET['destination'] = 'bye_admin';
+    } else {
+        $_GET['destination'] = 'bye_auth';
+    }
+}
