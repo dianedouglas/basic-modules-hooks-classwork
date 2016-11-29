@@ -21,10 +21,18 @@ function say_hello() {
 function say_farewell() {
     return '<p>Fare thee well my dear friend!</p>';
 }
-function greeting_with_hooks_user_login(){
-    // $_GET['destination'] = 'hello_friend';
-    // Route to different page on login for classwork exercise.
-    $_GET['destination'] = 'specials';
+function greeting_with_hooks_user_login(&$edit, $account){
+    // echo '<pre>';
+    // var_dump($account);
+    // echo '</pre>';
+    // exit;
+
+    // echo '<pre>';
+    // var_dump($edit);
+    // echo '</pre>';
+    // exit;
+
+    $_GET['destination'] = 'hello_friend';
 }
 function greeting_with_hooks_user_logout(){
     $_GET['destination'] = 'farewell';
