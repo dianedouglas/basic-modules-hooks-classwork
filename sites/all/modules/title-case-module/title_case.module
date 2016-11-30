@@ -1,0 +1,62 @@
+<?php
+
+
+function get_title_case($input) {
+    $ignore = ["a", "an", "the", "and", "but", "or", "nor", "at", "by", "for", "from", "in", "into", "of", "off", "on", "onto", "out", "up", "with", "to", "as", "if"];
+
+    $input = explode(' ', $input);
+    $final = [];
+    foreach ($input as $word) {
+        in_array($word, $ignore) ? array_push($final, $word) : array_push($final, ucfirst($word));
+    }
+
+    // force capitalize first word
+    $final[0] = ucfirst($final[0]);
+    $last = count($final) - 1;
+    $final[$last] = ucfirst($final[$last]);
+
+    return implode(' ', $final);
+}
+
+function title_case_menu() {
+    $items['title_case'] = array(
+        'title' => 'Title Case Generator',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('title_case_form'),
+        'access callback' => TRUE,
+        'type' => MENU_NORMAL_ITEM,
+    );
+    $items['title_case_success'] = array(
+        'title' => 'Title Case Generator',
+        'page callback' => 'title_case_display',
+        'access callback' => TRUE,
+        'type' => MENU_CALLBACK,
+    );
+    return $items;
+}
+
+function title_case_form() {
+    $form['input'] = array(
+        '#title' => 'Input Title',
+        '#type' => 'textfield',
+        '#description' => t("Input a title."),
+    );
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => 'Title-Case me!',
+    );
+
+    return $form;
+}
+
+function title_case_form_submit($form, &$form_state) {
+    $input= $form_state['values']['input'];
+    $_SESSION['input'] = $input;
+    $result = get_title_case($input);
+    $_SESSION['title'] = $result;
+    $form_state['redirect'] = 'title_case_success';
+}
+
+function title_case_display() {
+    return '<p>Your input: ' . $_SESSION['input'] . '</p><p>Your new title: <b>' . $_SESSION['title'] . '</b></p>';
+}

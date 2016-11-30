@@ -1,0 +1,88 @@
+<?php
+class TitleCaseUnitTests extends DrupalUnitTestCase {
+    public static function getInfo() {
+        // Note: getInfo() strings should not be translated.
+        return array(
+            'name' => 'Title case unit tests',
+            'description' => 'Test that get_title_case works properly.',
+            'group' => 'Epicodus Examples',
+        );
+
+    }
+
+    function testGetTitleCaseSingleWord() {
+        $input = "rain";
+        $result = get_title_case($input);
+        $this->assertEqual($result, "Rain");
+    }
+
+    function testGetTitleCaseWithIgnoreList() {
+        $input  = "rain in spain";
+        $result = get_title_case($input);
+        $this->assertEqual($result, "Rain in Spain");
+    }
+
+    function testGetTitleCaseIgnoreNotAppliedToFirstWord() {
+        $input = "in the park";
+        $result = get_title_case($input);
+        $this->assertEqual($result, "In the Park");
+    }
+
+    function testGetTitleCaseIgnoreNotAppliedToLastWord() {
+        $input = "in the park the";
+        $result = get_title_case($input);
+        $this->assertEqual($result, "In the Park The");
+    }
+}
+
+class TitleCaseFunctionalTests extends DrupalWebTestCase {
+
+    public static function getInfo() {
+        return array(
+            'name' => 'Title case functional tests',
+            'description' => 'Tests for the Title Case module.',
+            'group' => 'Epicodus Examples',
+        );
+    }
+
+    public function setUp() {
+        parent::setUp(array('title_case'));
+
+        $user = $this->drupalCreateAdminUser();
+        $this->drupalLogin($user);
+
+        $info = array();
+        $info['input'] = "the rain in spain";
+        //found the URL to post the form to by manually clicking to the Add Content menu and clicking on Page.
+        $this->drupalPost('title_case', $info, t('Title-Case me!'));
+
+        $path['source'] = 'title_case';
+        $path['alias'] = 'title_case_form';
+        path_save($path);
+    }
+
+    public function drupalCreateAdminUser(array $permissions = array()) {
+        $roles = user_roles();
+        $index = array_search('administrator', $roles);
+        $user = $this->drupalCreateUser($permissions);
+        $user->roles[$index] = 'administrator';
+        return user_save($user);
+    }
+
+    public function testTitleCaseForm() {
+        $this->drupalGet('title_case');
+        $this->assertText("Input", 'The text on the page is correct. Hoorah!');
+
+        $this->drupalGet('title_case_success');
+        $this->assertText("The Rain in Spain", 'The text on the page is correct. Hoorah!');
+    }
+
+    public function drupalCreateAuthenticatedUser($permissions = array()) {
+        $roles = user_roles();
+        $index = array_search('authenticated', $roles);
+        $user = $this->drupalCreateUser($permissions);
+        $user->roles[$index] = 'authenticated';
+        return user_save($user);
+    }
+
+}

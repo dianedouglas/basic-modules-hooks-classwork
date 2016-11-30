@@ -1,0 +1,5 @@
+name = Ping Pong
+description = Computes multiples of 3 and 5 per the usual coding challenge.
+package = Epicodus Examples
+core = 7.x
+files[] = ping_pong.module
