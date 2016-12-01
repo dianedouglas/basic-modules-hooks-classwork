@@ -1,0 +1,5 @@
+name = Ping Pong with Validation
+description = Computes multiples of 3 and 5 per the usual coding challenge.
+package = Epicodus Examples
+core = 7.x
+files[] = validate_ping_pong.module

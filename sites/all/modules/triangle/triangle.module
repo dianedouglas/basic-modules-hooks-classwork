@@ -1,0 +1,80 @@
+<?php
+// from Kyle b. and Pat F.
+function triangle_menu(){
+    $items['triangle'] = array(
+        'title'=>'Triangle Sides',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('triangle_form'),
+        'access callback' => TRUE,
+        'type' => MENU_NORMAL_ITEM,
+    );
+
+    $items['triangulate'] = array(
+        'title' => 'Triangle!',
+        'page callback' => 'tricalculator',
+        'access callback' => TRUE,
+        'type' => MENU_CALLBACK,
+    );
+
+    return $items;
+}
+
+function triangle_form() {
+    $form['side1'] = array(
+        '#title' => 'Side 1',
+        '#type' => 'textfield',
+        '#description' => t('Please enter the first side of your triangle'),
+        '#element_validate' => array('element_validate_number'),
+        '#required' => TRUE,
+    );
+
+    $form['side2'] = array(
+        '#title' => 'Side 2',
+        '#type' => 'textfield',
+        '#description' => t('Please enter the second side of your triangle'),
+        '#element_validate' => array('element_validate_number'),
+        '#required' => TRUE,
+    );
+    $form['side3'] = array(
+        '#title' => 'Side 3',
+        '#type' => 'textfield',
+        '#description' => t('Please enter the third side of your triangle'),
+        '#element_validate' => array('element_validate_number'),
+        '#required' => TRUE,
+    );
+
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => 'Is this a triangle?',
+    );
+    return $form;
+
+}
+
+function triangle_form_submit($form, &$form_state) {
+    $side1 = $form_state['values']['side1'];
+    $side2 = $form_state['values']['side2'];
+    $side3 = $form_state['values']['side3'];
+    $triangulate = "";
+
+    if ($side1 + $side2 <= $side3 || $side2 + $side1 <= $side3 || $side3 + $side2 <= $side1) {
+        $triangulate = "Not a triangle"; // common mistake here: < instead of <=
+    } elseif ($side2 == $side1 && $side2 == $side3) {
+        $triangulate = "Equalateral Triangle";
+    } elseif ($side2 == $side1 || $side2 == $side3 || $side1 == $side3) {
+        $triangulate = "Isosceles Triangle";
+    } elseif (($side2*$side2) + ($side1*$side1) == ($side3*$side3)) { //this is extra credit
+        $triangulate = "Right Triangle";
+    } else {
+        $triangulate = "Scalene Triangle";
+    }
+
+    $_SESSION['triangle_result'] = $triangulate;
+
+    $form_state['redirect'] = 'triangulate';
+}
+
+function tricalculator() {
+    $answer = $_SESSION['triangle_result'];
+    return $answer;
+}

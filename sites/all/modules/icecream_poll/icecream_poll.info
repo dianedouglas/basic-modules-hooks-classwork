@@ -1,0 +1,5 @@
+name = Ice Cream Poll
+description = Asks a users favorite icecream
+package = Epicodus Examples
+core= 7.x
+files[] = icecream_poll.module

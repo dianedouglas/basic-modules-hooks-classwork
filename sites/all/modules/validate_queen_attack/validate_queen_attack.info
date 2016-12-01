@@ -1,0 +1,5 @@
+name = Queen Attack with Validation
+description = Module for determining if a queen can attack another piece based on given locations
+package = Epicodus Examples
+core = 7.x
+files[] = validate_queen_attack.module
