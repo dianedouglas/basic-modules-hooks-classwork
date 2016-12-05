@@ -1,0 +1,5 @@
+name = Random Node Link
+description = Generate a link in the navigation menu to redirect a user to a random node of a particular content type.
+package = Epicodus Examples
+core = 7.x
+files[] = random_node.module

@@ -1,0 +1,25 @@
+<?php
+
+function simple_contact_form_alter(&$form, &$form_state, $form_id) {
+    if($form_id == 'contact_site_form') {
+        $form['subject']['#access'] = 0;
+        $form['subject']['#default_value'] = 'Feedback';
+
+        $form['copy']['#access'] = 0;
+        $form['copy']['#default_value'] = 1;
+        
+        // print '<pre>';
+        // print_r($form);
+        // print '</pre>';
+    }
+
+    print $form_id;
+    if($form_id == 'node_type_form') {
+      // this is a good way to drill down and find the info you need from large arrays.
+      // print '<pre>';
+      // print_r($form['display']);
+      // print_r($form['display']['node_submitted']);
+      // print '</pre>';
+      $form['display']['node_submitted']['#default_value'] = 0;
+    }
+}

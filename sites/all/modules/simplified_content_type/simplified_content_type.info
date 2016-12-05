@@ -1,0 +1,5 @@
+name = Simplified Content Type
+description = Simplify the node creation forms for custom content types on Jamie's Recipe Blog ('Recipe' and 'Tips and Tricks'.
+package = Epicodus Examples
+core= 7.x
+files[] = simplified_content_type.module

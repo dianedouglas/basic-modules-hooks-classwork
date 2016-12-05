@@ -1,0 +1,48 @@
+<?php
+function random_node_menu() {
+    $items['random'] = array(
+        'title' => 'Surprise Me!',
+        'page callback' => 'generate_random',
+        'access callback' => TRUE,
+        'type' => MENU_NORMAL_ITEM,
+    );
+    return $items;
+}
+
+function generate_random() {
+  // step 1: generate a menu link taking us to a page. standard hook_menu
+  // return '<p>Here is where we generate a URL and redirect the user!</p>';
+
+  // step 2: figure out how to display a node when link is clicked. Create recipe, use its url.
+  // googled: drupal redirect to url from page callback
+  // drupal_goto('node/2');
+
+  // step 3: get array of node ids for my content type recipe. 
+  // googled: drupal 7 get urls of all nodes by type, got this one first: https://www.drupal.org/node/1079616
+  $node_type = "recipe"; // can find this on the node type's "edit" screen in the Drupal admin section.
+
+  $result = db_query("SELECT nid FROM node WHERE type = :nodeType ", array(':nodeType'=>$node_type)); 
+
+  $nids = array();
+  foreach ($result as $obj) {  
+    $nids[] = $obj->nid;
+  }
+
+  //use exit trick to print them out.
+  // print '<pre>';
+  // print_r($nids);
+  // print '</pre>';
+  // exit;
+
+  // step 4: generate a random number between 0 and the length of the array of $nids - 1.
+  $random_node_index = rand(0, count($nids) - 1);
+  print $random_node_index;
+  // exit;
+
+  // step 5: use index to look up node id and generate URL for drupal_goto.
+  $url = 'node/' . $nids[$random_node_index];
+  drupal_goto($url);
+}
+
+
+

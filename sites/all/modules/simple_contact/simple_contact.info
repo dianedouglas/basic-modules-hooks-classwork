@@ -1,0 +1,5 @@
+name = Simple Contact
+description = This module sets default values for contact subject and 'send copy to myself' fields and then hides them. Also sets default value for 'Display author and date info' on 'new content type' form to unchecked.
+package = Epicodus Examples
+core= 7.x
+files[] = simple_contact.module
